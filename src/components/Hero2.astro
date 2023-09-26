@@ -1,0 +1,138 @@
+---
+const items = [
+  {
+    text: 'Descubre los cursos que tenemos para ti.',
+    img: 'https://www.datascience.pe/assets/img/image-home-with-movement.png',
+  },
+  {
+    text: 'Los 8 sonidos principales del perro | Fundación Affinity.',
+    img: 'https://static.fundacion-affinity.org/cdn/farfuture/PVbbIC-0M9y4fPbbCsdvAD8bcjjtbFc0NSP3lRwlWcE/mtime:1643275542/sites/default/files/los-10-sonidos-principales-del-perro.jpg',
+  },
+  {
+    text: '11 cosas por las que amas a tu gato y no lo sabías (o quizá sí).',
+    img: 'https://ca-times.brightspotcdn.com/dims4/default/796e6c9/2147483647/strip/true/crop/1970x1108+39+0/resize/1200x675!/quality/75/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F12%2Fa5%2F79e097ccf62312d18a025f22ce48%2Fhoyla-recuento-11-cosas-aman-gatos-top-001',
+  },
+];
+---
+
+<script>
+  //@ts-ignore
+  import Typed from 'typed.js';
+
+  const items = [
+    {
+      text: 'Descubre los cursos que tenemos para ti.',
+      img: 'https://www.datascience.pe/assets/img/image-home-with-movement.png',
+    },
+    {
+      text: 'Los 8 sonidos principales del perro | Fundación Affinity.',
+      img: 'https://static.fundacion-affinity.org/cdn/farfuture/PVbbIC-0M9y4fPbbCsdvAD8bcjjtbFc0NSP3lRwlWcE/mtime:1643275542/sites/default/files/los-10-sonidos-principales-del-perro.jpg',
+    },
+    {
+      text: '11 cosas por las que amas a tu gato y no lo sabías (o quizá sí).',
+      img: 'https://ca-times.brightspotcdn.com/dims4/default/796e6c9/2147483647/strip/true/crop/1970x1108+39+0/resize/1200x675!/quality/75/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F12%2Fa5%2F79e097ccf62312d18a025f22ce48%2Fhoyla-recuento-11-cosas-aman-gatos-top-001',
+    },
+  ];
+
+  new Typed('#title', {
+    strings: items.map((item) => item.text),
+    typeSpeed: 40,
+    backSpeed: 20,
+    backDelay: 2000,
+    loop: true,
+    preStringTyped: (arrayPos: number, self: any) => {
+      console.log(`preStringTyped ${arrayPos}`);
+      // pos = arrayPos;
+      showImage(arrayPos);
+    },
+    onStringTyped: (arrayPos: number, self: any) => {
+      console.log(`onStringTyped ${arrayPos}`);
+    },
+  });
+
+  function showImage(pos: number) {
+    const currentImage = document.getElementById(pos.toString()) as HTMLImageElement;
+    currentImage.style.animation = 'fadeIn 1s';
+    currentImage.style.opacity = '1';
+    let prevPos = pos - 1;
+    if (prevPos < 0) {
+      prevPos = items.length - 1;
+    }
+    const prevImage = document.getElementById(prevPos.toString()) as HTMLImageElement;
+    prevImage.style.animation = 'fadeOut 1s';
+    prevImage.style.opacity = '0';
+  }
+</script>
+
+<section class="container m-auto max-w-screen-lg">
+  <div class="h-screen">
+    <div class="flex h-full">
+      <div class="w-1/2 flex justify-center flex-col">
+        <h1 class="font-black uppercase text-5xl text-indigo-600 mb-5">
+          <span id="title"></span>
+        </h1>
+        <p class="mb-4">
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Doloribus suscipit quibusdam eum
+          vel, itaque sit delectus? Porro pariatur nemo tempora eligendi illum assumenda harum fuga,
+          est tenetur nihil, corporis labore?
+        </p>
+        <div class="flex gap-2">
+          <button class="bg-indigo-500 text-white rounded-full py-2 px-4">Contáctanos</button>
+          <button class="bg-indigo-500 text-white rounded-full py-2 px-4">Ver soluciones</button>
+        </div>
+      </div>
+      <div class="w-1/2 flex items-center">
+        <div id="images" class="bounce-up-down relative w-[500px] h-[500px]">
+          {
+            items.map((item, index) => (
+              <img
+                id={index.toString()}
+                src={item.img}
+                alt=""
+                class="transition-opacity opacity-0 absolute w-full h-full object-cover"
+              />
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .bounce-up-down {
+    animation: updown 3s infinite;
+  }
+  /* Animation up and down*/
+  @keyframes updown {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+  /* Animation fade in*/
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  /* Animation fade out*/
+  @keyframes fadeOut {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+</style>

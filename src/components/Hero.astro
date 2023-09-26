@@ -1,0 +1,92 @@
+<script>
+  //@ts-ignore
+  import Typed from 'typed.js';
+
+  const items = [
+    {
+      text: 'Descubre los cursos que tenemos para ti.',
+      img: 'https://www.datascience.pe/assets/img/image-home-with-movement.png',
+    },
+    {
+      text: 'Los 8 sonidos principales del perro | Fundación Affinity.',
+      img: 'https://static.fundacion-affinity.org/cdn/farfuture/PVbbIC-0M9y4fPbbCsdvAD8bcjjtbFc0NSP3lRwlWcE/mtime:1643275542/sites/default/files/los-10-sonidos-principales-del-perro.jpg',
+    },
+    {
+      text: '11 cosas por las que amas a tu gato y no lo sabías (o quizá sí).',
+      img: 'https://ca-times.brightspotcdn.com/dims4/default/796e6c9/2147483647/strip/true/crop/1970x1108+39+0/resize/1200x675!/quality/75/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F12%2Fa5%2F79e097ccf62312d18a025f22ce48%2Fhoyla-recuento-11-cosas-aman-gatos-top-001',
+    },
+  ];
+
+  new Typed('#title', {
+    strings: items.map((item) => item.text),
+    typeSpeed: 40,
+    backSpeed: 20,
+    backDelay: 2000,
+    loop: true,
+    preStringTyped: (arrayPos: number, self: any) => {
+      console.log(`preStringTyped ${arrayPos}`);
+      nextImage(arrayPos);
+    },
+    onStringTyped: (arrayPos: number, self: any) => {
+      console.log(`onStringTyped ${arrayPos}`);
+    },
+  });
+
+  function nextImage(pos: number) {
+    const image = document.querySelector('.image') as HTMLImageElement;
+    image.style.opacity = '0';
+    setTimeout(() => {
+      image.src = items[pos].img;
+      image.style.opacity = '1';
+    }, 500);
+  }
+</script>
+
+<section class="container m-auto max-w-screen-lg">
+  <div class="h-screen">
+    <div class="flex h-full">
+      <div class="w-1/2 flex justify-center flex-col">
+        <h1 class="font-black uppercase text-5xl text-indigo-600 mb-5">
+          <span id="title"></span>
+        </h1>
+        <p class="mb-4">
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Doloribus suscipit quibusdam eum
+          vel, itaque sit delectus? Porro pariatur nemo tempora eligendi illum assumenda harum fuga,
+          est tenetur nihil, corporis labore?
+        </p>
+        <div class="flex gap-2">
+          <button class="bg-indigo-500 text-white rounded-full py-2 px-4">Contáctanos</button>
+          <button class="bg-indigo-500 text-white rounded-full py-2 px-4">Ver soluciones</button>
+        </div>
+      </div>
+      <div class="w-1/2 flex items-center">
+        <div id="images">
+          <img
+            id="image"
+            src="https://www.datascience.pe/assets/img/image-home-with-movement.png"
+            alt=""
+            class="opacity-0 transition-opacity image"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .image {
+    animation: updown 3s infinite;
+  }
+  /* Animation up and down*/
+  @keyframes updown {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+</style>
